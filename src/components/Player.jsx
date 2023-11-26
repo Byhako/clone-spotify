@@ -1,6 +1,6 @@
 import { usePlayerStore } from "@/store/playerStore"
 import { useEffect, useRef, useState } from "react"
-// import { Slider } from "./Slider"
+import { Slider } from "./Slider"
 
 export const Pause = ({ className }) => (
   <svg className={className} role="img" height="16" width="16" aria-hidden="true" viewBox="0 0 16 16"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>
@@ -103,14 +103,17 @@ const VolumeControl = () => {
     if (isVolumeSilenced) {
       setVolume(previousVolumeRef.current)
     } else {
-      previousVolumeRef.current = volume
+      previousVolumeRef.current = volume // guradar volumen anterior
       setVolume(0)
     }
   }
 
   return (
     <div className="flex justify-center gap-x-2 text-white">
-      <button className="opacity-70 hover:opacity-100 transition" onClick={handleClickVolumen}>
+      <button
+        className="opacity-70 hover:opacity-100 transition"
+        onClick={handleClickVolumen}
+      >
         {isVolumeSilenced ? <VolumeSilence /> : <Volume />}
       </button>
     
@@ -151,11 +154,10 @@ export function Player () {
 
   useEffect(() => {
     const { song, playlist } = currentMusic
-    console.log('song', song)
     if (song) {
       const src = `/music/${playlist?.id}/0${song.id}.mp3`
       console.log(src)
-      audioRef.current.src = src
+      audioRef.current.src = src  
       audioRef.current.volume = volume
       audioRef.current.play()
     }
@@ -165,8 +167,7 @@ export function Player () {
   return (
     <div className="flex flex-row justify-between w-full px-1 z-50">
       <div className="w-[200px]">
-        {/* <CurrentSong {...currentMusic.song} /> */}
-        CurrentSong
+        <CurrentSong {...currentMusic.song} />
       </div>
 
       <div className="grid place-content-center gap-4 flex-1">
@@ -184,8 +185,7 @@ export function Player () {
       </div>
 
       <div className="grid place-content-center">
-        {/* <VolumeControl /> */}
-        Voluman
+        <VolumeControl />
       </div>
     </div>
   )
