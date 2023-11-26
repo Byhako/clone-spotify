@@ -1,4 +1,4 @@
-// import { usePlayerStore } from "@/store/playerStore"
+import { usePlayerStore } from "@/store/playerStore"
 import { useEffect, useRef, useState } from "react"
 // import { Slider } from "./Slider"
 
@@ -131,33 +131,36 @@ const VolumeControl = () => {
 }
 
 export function Player () {
-  // const { currentMusic, isPlaying, setIsPlaying, volume } = usePlayerStore(state => state)
-  const [isPlaying, setIsPlaying ] = useState(false)
+  const {
+    currentMusic,
+    isPlaying,
+    setIsPlaying,
+    volume
+  } = usePlayerStore(state => state)
   const audioRef = useRef()
 
-  // useEffect(() => {
-  //   isPlaying
-  //     ? audioRef.current.play()
-  //     : audioRef.current.pause()
-  // }, [isPlaying])
+  useEffect(() => {
+    isPlaying
+      ? audioRef.current.play()
+      : audioRef.current.pause()
+  }, [isPlaying])
 
-  // useEffect(() => {
-  //   audioRef.current.volume = volume
-  // }, [volume])
+  useEffect(() => {
+    audioRef.current.volume = volume
+  }, [volume])
 
-  // useEffect(() => {
-  //   const { song, playlist, songs } = currentMusic
-  //   if (song) {
-  //     const src = `/music/${playlist?.id}/0${song.id}.mp3`
-  //     audioRef.current.src = src
-  //     audioRef.current.volume = volume
-  //     audioRef.current.play()
-  //   }
-  // }, [currentMusic])
+  useEffect(() => {
+    const { song, playlist } = currentMusic
+    console.log('song', song)
+    if (song) {
+      const src = `/music/${playlist?.id}/0${song.id}.mp3`
+      console.log(src)
+      audioRef.current.src = src
+      audioRef.current.volume = volume
+      audioRef.current.play()
+    }
+  }, [currentMusic])
 
-  const handleClick = () => {
-    setIsPlaying(!isPlaying)
-  }
 
   return (
     <div className="flex flex-row justify-between w-full px-1 z-50">
@@ -168,11 +171,14 @@ export function Player () {
 
       <div className="grid place-content-center gap-4 flex-1">
         <div className="flex justify-center flex-col items-center">
-          <button className="bg-white rounded-full p-2" onClick={handleClick}>
+          <button
+            className="bg-white rounded-full p-2"
+            onClick={() => setIsPlaying(!isPlaying)}
+          >
             {isPlaying ? <Pause /> : <Play />}
           </button>
-          {/* <SongControl audio={audioRef} />
-          <audio ref={audioRef} /> */}
+          {/* <SongControl audio={audioRef} /> */}
+          <audio ref={audioRef} />
         </div>
 
       </div>
