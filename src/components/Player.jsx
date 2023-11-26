@@ -156,7 +156,6 @@ export function Player () {
     const { song, playlist } = currentMusic
     if (song) {
       const src = `/music/${playlist?.id}/0${song.id}.mp3`
-      console.log(src)
       audioRef.current.src = src  
       audioRef.current.volume = volume
       audioRef.current.play()
@@ -178,7 +177,7 @@ export function Player () {
           >
             {isPlaying ? <Pause /> : <Play />}
           </button>
-          {/* <SongControl audio={audioRef} /> */}
+          <SongControl audio={audioRef} />
           <audio ref={audioRef} />
         </div>
 
