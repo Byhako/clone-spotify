@@ -1,5 +1,5 @@
 import { Play, Pause } from './Player'
-import { usePlayerStore } from '@/store/playerStore'
+import { usePlayerStore } from '../store/playerStore'
 
 export default function CardPlayButton({ id }) {
   const {
